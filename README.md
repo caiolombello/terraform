@@ -16,7 +16,7 @@ Para isso a nova infraestrutura necessita ter:
 #### Ambiente em execução
 
 ![Instâncias](AWS/Ambiente%201/images/instances.png)
-![Banco de Dados](AWS/Ambiente%201/images/instances.png)
+![Banco de Dados](AWS/Ambiente%201/images/databases.png)
 
 ### Ambiente 2
 
