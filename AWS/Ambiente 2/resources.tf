@@ -3,7 +3,7 @@ resource "aws_instance" "machine" {
   instance_type = var.instance_type
 
   tags = {
-    # Name = "machine-${count.index}"
+    Name = "machine"
   }
 }
 
