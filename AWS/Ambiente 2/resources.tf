@@ -1,6 +1,10 @@
 resource "aws_instance" "machine" {
   ami           = lookup(var.ec2_ami, var.region)
   instance_type = var.instance_type
+
+  tags = {
+    Name = "machine-${index.count}"
+  }
 }
 
 resource "aws_instance" "mysql-dependent" {
