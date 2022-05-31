@@ -9,7 +9,7 @@ Para isso a nova infraestrutura necessita ter:
 
 - Um ambiente com 3 máquinas, sendo uma delas dependente do recurso postgres (/Ambiente 1)
 - Um ambiente com 2 máquinas, sendo uma delas dependente de mysql (/Ambiente 2)
-- Um ambiente com Docker (imagem Java) (/Ambiente 3)
+- Um ambiente com Docker (imagem Java) (/Ambiente 1)
 
 ### Ambiente 1
 
@@ -24,9 +24,3 @@ Para isso a nova infraestrutura necessita ter:
 
 ![Instâncias](AWS/Ambiente%202/images/instances.png)
 ![Banco de Dados](AWS/Ambiente%202/images/databases.png)
-### Ambiente 3
-
-#### Ambiente em execução
-
-![Instâncias](AWS/Ambiente%203/images/instances.png)
-![Banco de Dados](AWS/Ambiente%203/images/instances.png)

@@ -1,0 +1,6 @@
+[postgres-dependent]
+15.228.228.174
+
+[all:vars]
+ansible_user = ubuntu
+ansible_ssh_private_key_file = ../Terraform/ansible.pem

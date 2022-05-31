@@ -1,3 +1,4 @@
+# Machines
 resource "aws_instance" "machine" {
   # Creates two identical aws ec2 instances
   count = 2
@@ -16,14 +17,26 @@ resource "aws_instance" "postgres-dependent" {
   depends_on = [
     aws_db_instance.postgresql
   ]
-  ami = lookup(var.ec2_ami, var.region)
-  instance_type = var.instance_type
+  ami             = lookup(var.ec2_ami, var.region)
+  instance_type   = var.instance_type
+  security_groups = [var.security_group]
+  key_name        = aws_key_pair.generated_key.key_name # Associate key pair with machine
   tags = {
     Name = "postgres-dependent"
   }
+
+  provisioner "local-exec" { # Apply postgres-dependent machine configs to Ansible
+    command =<<-EOF
+    echo '[${aws_instance.postgres-dependent.tags.Name}]' > ../Ansible/hosts
+    echo '${aws_instance.postgres-dependent.public_ip}' >> ../Ansible/hosts
+    echo '\n[all:vars]' >> ../Ansible/hosts
+    echo 'ansible_user = ubuntu' >> ../Ansible/hosts
+    echo 'ansible_ssh_private_key_file = ../Terraform/ansible.pem' >> ../Ansible/hosts
+  EOF
+  }
 }
 
-#Create database
+# Create database
 resource "aws_db_instance" "postgresql" {
   identifier          = "postgres"
   allocated_storage   = 10
@@ -35,3 +48,4 @@ resource "aws_db_instance" "postgresql" {
   password            = "foobarbaz"
   skip_final_snapshot = true
 }
+

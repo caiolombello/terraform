@@ -29,3 +29,15 @@ variable "postgresql_version" {
 variable "instance_class" {
   type = string
 }
+
+# Creating a Variable for security_group
+variable "security_group" {
+  default     = "open_ports"
+  description = "Security group name"
+}
+
+# Creating a Variable for key_name
+variable "key_name" {
+  default     = "ansible"
+  description = "Key Pair name"
+}
