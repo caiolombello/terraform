@@ -1,5 +1,38 @@
 - hosts: postgres-dependent
   tasks:
+    - name: Change hostname to postgres-dependent
+      command: hostnamectl set-hostname postgres-dependent
+      become: yes
+
+    - name: Edit hostname to /etc/hostname 
+      lineinfile:
+        dest: /etc/hostname  
+        regexp: '^ip*'
+        line: 'postgres-dependent'
+        state: present  
+      become: yes
+
+    - name: Add hostname to /etc/hosts
+      lineinfile:
+        dest: /etc/hosts
+        regexp: '^127\.0\.0\.1[ \t]+localhost'
+        line: '127.0.0.1 localhost postgres-dependent'
+        state: present  
+      become: yes
+
+    - name: Install docker dependencies
+      apt: 
+        name: "{{ item }}"
+        state: latest
+        update_cache: true
+      become: yes
+      with_items:
+        - "ca-certificates"
+        - "curl"
+        - "gnupg"
+        - "lsb-release"
+        - "python3-pip"
+
     - name: Add Docker GPG apt Key
       apt_key:
         url: https://download.docker.com/linux/ubuntu/gpg
